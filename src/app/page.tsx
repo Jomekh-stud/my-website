@@ -1,41 +1,47 @@
+import { Mic, Camera, Headphones, FileText, Theater } from "lucide-react";
 import { SectionCard } from "@/components/section-card";
 import { siteConfig } from "@/lib/site-config";
 
 const sections = [
   {
     href: "/voice-over",
-    icon: "🎙️",
+    icon: Mic,
     title: "Voice Over",
     description: "Commercial, animation, and narration reels & samples.",
     color: "bg-primary/10",
+    iconColor: "text-primary",
   },
   {
     href: "/gallery",
-    icon: "📸",
+    icon: Camera,
     title: "Gallery",
     description: "Performance photos from stages and studios.",
     color: "bg-secondary/10",
+    iconColor: "text-secondary",
   },
   {
     href: "/podcast",
-    icon: "🎧",
+    icon: Headphones,
     title: "Podcast",
     description: "Listen to The John Q Show on your favorite platform.",
     color: "bg-accent/20",
+    iconColor: "text-accent",
   },
   {
     href: "/resume",
-    icon: "📄",
+    icon: FileText,
     title: "Resume",
     description: "Training, credits, skills, and contact info.",
     color: "bg-mint/10",
+    iconColor: "text-mint",
   },
   {
     href: "/coaching",
-    icon: "🎭",
+    icon: Theater,
     title: "Coaching",
     description: "Private lessons, group classes, and workshops.",
     color: "bg-primary/10",
+    iconColor: "text-primary",
   },
 ];
 
