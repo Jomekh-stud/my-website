@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "John Q",
+  name: "John Queenan",
   tagline: "Voice Actor | Improv Performer | Podcaster | Coach",
   description:
     "Multi-hyphenate performer specializing in voice acting, improv comedy, podcasting, and improv coaching.",
@@ -12,7 +12,7 @@ export const siteConfig = {
     linkedin: "https://linkedin.com/in/johnqperforms",
   },
   podcast: {
-    name: "The John Q Show",
+    name: "The John Queenan Show",
     description:
       "A comedy podcast exploring the wild world of improv, voice acting, and the creative hustle. New episodes weekly.",
     artwork: "/images/podcast-artwork.jpg",
@@ -30,5 +30,6 @@ export const siteConfig = {
     { href: "/podcast", label: "Podcast" },
     { href: "/resume", label: "Resume" },
     { href: "/coaching", label: "Coaching" },
+    { href: "/games", label: "Games" },
   ],
 } as const;

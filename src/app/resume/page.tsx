@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Mail, Download } from "lucide-react";
+import { FileText, Mail, Download } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ const training = [
 const credits = [
   { role: "Lead (V/O)", project: "Character Animation Series", venue: "Studio" },
   { role: "Ensemble", project: "Main Stage Revue", venue: "The Second City" },
-  { role: "Host", project: "The John Q Show", venue: "Podcast" },
+  { role: "Host", project: "The John Queenan Show", venue: "Podcast" },
   { role: "Featured", project: "Commercial Campaign", venue: "National" },
 ];
 
@@ -50,6 +50,13 @@ export default function ResumePage() {
         </div>
 
         <div className="flex-1 text-center md:text-left">
+          <div className="flex items-center gap-2 mb-2 justify-center md:justify-start">
+            <FileText size={24} className="text-primary" />
+            <span className="text-sm font-medium text-primary uppercase tracking-wide">
+              Resume
+            </span>
+          </div>
+
           <h1 className="text-3xl sm:text-4xl font-bold mb-2">
             {siteConfig.name}
           </h1>

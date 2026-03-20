@@ -30,6 +30,7 @@ export function ContactForm() {
             name="name"
             required
             maxLength={100}
+            autoFocus
             className="w-full rounded-lg border border-foreground/15 bg-white px-4 py-2.5 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
           />
         </div>

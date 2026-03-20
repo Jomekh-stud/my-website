@@ -1,4 +1,6 @@
-import { Mic, Camera, Headphones, FileText, Theater } from "lucide-react";
+import { Mic, Camera, Headphones, FileText, Sprout, Dices } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { SectionCard } from "@/components/section-card";
 import { siteConfig } from "@/lib/site-config";
 
@@ -23,7 +25,7 @@ const sections = [
     href: "/podcast",
     icon: Headphones,
     title: "Podcast",
-    description: "Listen to The John Q Show on your favorite platform.",
+    description: "Listen to The John Queenan Show on your favorite platform.",
     color: "bg-accent/20",
     iconColor: "text-accent",
   },
@@ -37,31 +39,63 @@ const sections = [
   },
   {
     href: "/coaching",
-    icon: Theater,
+    icon: Sprout,
     title: "Coaching",
     description: "Private lessons, group classes, and workshops.",
     color: "bg-primary/10",
     iconColor: "text-primary",
+  },
+  {
+    href: "/games",
+    icon: Dices,
+    title: "Games",
+    description: "Original tabletop and board games on itch.io.",
+    color: "bg-secondary/10",
+    iconColor: "text-secondary",
   },
 ];
 
 export default function Home() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-      <section className="mb-16 text-center">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
-          Hey, I&apos;m{" "}
-          <span className="text-primary">{siteConfig.name}</span>
-          <span className="text-secondary">.</span>
-        </h1>
-        <p className="text-xl sm:text-2xl text-foreground/60 max-w-2xl mx-auto mb-6">
-          {siteConfig.tagline}
-        </p>
-        <p className="text-base text-foreground/50 max-w-xl mx-auto">
-          I bring characters to life behind the mic, make stuff up on stage,
-          talk too much into microphones, and teach other people how to do all of
-          the above.
-        </p>
+      <section className="mb-16">
+        <div className="flex flex-col lg:flex-row-reverse gap-8 lg:gap-12 items-center">
+          {/* Headshot Image */}
+          <div className="w-full lg:w-1/3 flex justify-center shrink-0">
+            <div className="relative w-48 h-60 sm:w-56 sm:h-72 lg:w-64 lg:h-80 rounded-2xl overflow-hidden shadow-lg bg-primary/10">
+              <Image
+                src="/images/headshot.jpg"
+                alt={`${siteConfig.name} headshot`}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* Text Content */}
+          <div className="w-full lg:w-2/3 text-center lg:text-left">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
+              Hey, I&apos;m{" "}
+              <span className="text-primary">{siteConfig.name}</span>
+              <span className="text-secondary">.</span>
+            </h1>
+            <p className="text-xl sm:text-2xl text-foreground/60 mb-6">
+              {siteConfig.tagline}
+            </p>
+            <p className="text-base text-foreground/50 max-w-xl mx-auto lg:mx-0 mb-6">
+              I bring characters to life behind the mic, make stuff up on stage,
+              talk too much into microphones, and teach other people how to do all of
+              the above.
+            </p>
+            <Link
+              href="/coaching#contact-form"
+              className="inline-block px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-light transition-colors font-semibold"
+            >
+              Get in Touch
+            </Link>
+          </div>
+        </div>
       </section>
 
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

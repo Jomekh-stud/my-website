@@ -21,8 +21,8 @@ export default function GalleryPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="flex items-center gap-2 mb-2">
-        <Camera size={24} className="text-secondary" />
-        <span className="text-sm font-medium text-secondary uppercase tracking-wide">
+        <Camera size={24} className="text-primary" />
+        <span className="text-sm font-medium text-primary uppercase tracking-wide">
           Gallery
         </span>
       </div>
