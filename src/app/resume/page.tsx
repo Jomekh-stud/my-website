@@ -67,7 +67,7 @@ export default function ResumePage() {
 
           <div className="flex flex-wrap gap-3 justify-center md:justify-start">
             <a
-              href={`mailto:${siteConfig.email}`}
+              href="/contact"
               className="inline-flex items-center gap-2 rounded-full bg-primary text-white px-5 py-2 text-sm font-medium hover:bg-primary-light transition-colors"
             >
               <Mail size={16} />

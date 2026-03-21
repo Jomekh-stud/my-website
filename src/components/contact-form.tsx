@@ -5,7 +5,6 @@ import { Send } from "lucide-react";
 import { submitContactForm, type ContactState } from "@/app/coaching/actions";
 
 const inquiryTypes = [
-  "Private Coaching",
   "Group Class",
   "Workshop",
   "Other",

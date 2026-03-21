@@ -6,9 +6,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/voice-over",
     "/gallery",
+    "/media",
     "/podcast",
+    "/games",
     "/resume",
     "/coaching",
+    "/events",
+    "/contact",
   ];
 
   return routes.map((route) => ({

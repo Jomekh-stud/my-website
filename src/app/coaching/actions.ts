@@ -8,7 +8,7 @@ const contactSchema = z.object({
   email: z.string().email("Please enter a valid email"),
   phone: z.string().max(20).optional(),
   inquiryType: z.enum(
-    ["Private Coaching", "Group Class", "Workshop", "Other"],
+    ["Group Class", "Workshop", "Other"],
     { message: "Please select an inquiry type" },
   ),
   message: z.string().min(10, "Message must be at least 10 characters").max(2000),

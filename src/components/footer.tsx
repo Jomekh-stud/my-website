@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Instagram, Twitter, Youtube, Linkedin } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
@@ -18,6 +19,12 @@ export function Footer() {
         </p>
 
         <div className="flex items-center gap-4">
+          <Link
+            href="/contact"
+            className="text-sm font-medium text-foreground/60 hover:text-primary transition-colors"
+          >
+            Contact
+          </Link>
           {Object.entries(siteConfig.socials).map(([platform, url]) => {
             const Icon = socialIcons[platform as keyof typeof socialIcons];
             return (

@@ -1,4 +1,4 @@
-import { Mic, Camera, Headphones, FileText, Sprout, Dices } from "lucide-react";
+import { Mic, Camera, Headphones, FileText, Sprout, CalendarDays } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { SectionCard } from "@/components/section-card";
@@ -14,22 +14,6 @@ const sections = [
     iconColor: "text-primary",
   },
   {
-    href: "/gallery",
-    icon: Camera,
-    title: "Gallery",
-    description: "Performance photos from stages and studios.",
-    color: "bg-secondary/10",
-    iconColor: "text-secondary",
-  },
-  {
-    href: "/podcast",
-    icon: Headphones,
-    title: "Podcast",
-    description: "Listen to The John Queenan Show on your favorite platform.",
-    color: "bg-accent/20",
-    iconColor: "text-accent",
-  },
-  {
     href: "/resume",
     icon: FileText,
     title: "Resume",
@@ -38,20 +22,36 @@ const sections = [
     iconColor: "text-mint",
   },
   {
+    href: "/events",
+    icon: CalendarDays,
+    title: "Events",
+    description: "Upcoming performances, shows, and appearances.",
+    color: "bg-secondary/10",
+    iconColor: "text-secondary",
+  },
+  {
+    href: "/media",
+    icon: Headphones,
+    title: "Media",
+    description: "Podcast episodes and game projects in one place.",
+    color: "bg-accent/20",
+    iconColor: "text-accent",
+  },
+  {
+    href: "/gallery",
+    icon: Camera,
+    title: "Gallery",
+    description: "Performance photos from stages and studios.",
+    color: "bg-secondary/10",
+    iconColor: "text-secondary",
+  },
+  {
     href: "/coaching",
     icon: Sprout,
     title: "Coaching",
     description: "Private lessons, group classes, and workshops.",
     color: "bg-primary/10",
     iconColor: "text-primary",
-  },
-  {
-    href: "/games",
-    icon: Dices,
-    title: "Games",
-    description: "Original tabletop and board games on itch.io.",
-    color: "bg-secondary/10",
-    iconColor: "text-secondary",
   },
 ];
 

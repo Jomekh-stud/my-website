@@ -33,10 +33,10 @@ export const siteConfig = {
   navLinks: [
     { href: "/", label: "Home" },
     { href: "/voice-over", label: "Voice Over" },
-    { href: "/gallery", label: "Gallery" },
-    { href: "/podcast", label: "Podcast" },
     { href: "/resume", label: "Resume" },
+    { href: "/events", label: "Events" },
+    { href: "/media", label: "Media" },
+    { href: "/gallery", label: "Gallery" },
     { href: "/coaching", label: "Coaching" },
-    { href: "/games", label: "Games" },
   ],
 } as const;
