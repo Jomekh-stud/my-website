@@ -12,8 +12,6 @@ const photos = [
   { src: "/images/gallery/show-1.jpg", alt: "Improv show performance", width: 800, height: 600 },
   { src: "/images/gallery/show-2.jpg", alt: "Stage performance", width: 800, height: 600 },
   { src: "/images/gallery/show-3.jpg", alt: "Comedy night", width: 600, height: 800 },
-  { src: "/images/gallery/studio-1.jpg", alt: "Voice over studio session", width: 800, height: 600 },
-  { src: "/images/gallery/studio-2.jpg", alt: "Recording booth", width: 800, height: 600 },
   { src: "/images/gallery/behind-1.jpg", alt: "Behind the scenes", width: 600, height: 800 },
 ];
 
