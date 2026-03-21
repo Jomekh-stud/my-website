@@ -40,11 +40,12 @@ export default function ResumePage() {
         <div className="shrink-0 mx-auto md:mx-0">
           <div className="w-48 h-60 rounded-2xl bg-primary/10 overflow-hidden shadow-lg">
             <Image
-              src="/images/headshot.jpg"
+              src={siteConfig.media.headshot.src}
               alt={`${siteConfig.name} headshot`}
               width={192}
               height={240}
               className="object-cover w-full h-full"
+              style={{ objectPosition: siteConfig.media.headshot.position }}
             />
           </div>
         </div>

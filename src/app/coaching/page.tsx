@@ -59,7 +59,7 @@ export default function CoachingPage() {
           return (
             <div
               key={item.title}
-              className="rounded-2xl border border-foreground/10 bg-white p-6 shadow-sm"
+              className="rounded-2xl border border-foreground/10 bg-surface p-6 shadow-sm shadow-black/5"
             >
               <div
                 className={`mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl ${item.bg}`}

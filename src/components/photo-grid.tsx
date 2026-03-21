@@ -9,6 +9,7 @@ type Photo = {
   alt: string;
   width: number;
   height: number;
+  position?: string;
 };
 
 export function PhotoGrid({ photos }: { photos: Photo[] }) {
@@ -56,6 +57,7 @@ export function PhotoGrid({ photos }: { photos: Photo[] }) {
               fill
               sizes="(max-width: 768px) 50vw, 33vw"
               className="object-cover transition-transform duration-300 group-hover:scale-105"
+              style={{ objectPosition: photo.position ?? "50% 50%" }}
             />
           </button>
         ))}

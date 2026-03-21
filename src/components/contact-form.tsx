@@ -31,7 +31,7 @@ export function ContactForm() {
             required
             maxLength={100}
             autoFocus
-            className="w-full rounded-lg border border-foreground/15 bg-white px-4 py-2.5 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
+            className="w-full rounded-lg border border-foreground/15 bg-surface px-4 py-2.5 text-sm text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
           />
         </div>
 
@@ -44,7 +44,7 @@ export function ContactForm() {
             id="email"
             name="email"
             required
-            className="w-full rounded-lg border border-foreground/15 bg-white px-4 py-2.5 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
+            className="w-full rounded-lg border border-foreground/15 bg-surface px-4 py-2.5 text-sm text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
           />
         </div>
       </div>
@@ -60,7 +60,7 @@ export function ContactForm() {
             id="phone"
             name="phone"
             maxLength={20}
-            className="w-full rounded-lg border border-foreground/15 bg-white px-4 py-2.5 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
+            className="w-full rounded-lg border border-foreground/15 bg-surface px-4 py-2.5 text-sm text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
           />
         </div>
 
@@ -76,7 +76,7 @@ export function ContactForm() {
             name="inquiryType"
             required
             defaultValue=""
-            className="w-full rounded-lg border border-foreground/15 bg-white px-4 py-2.5 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
+            className="w-full rounded-lg border border-foreground/15 bg-surface px-4 py-2.5 text-sm text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
           >
             <option value="" disabled>
               Select one...
@@ -101,7 +101,7 @@ export function ContactForm() {
           rows={5}
           minLength={10}
           maxLength={2000}
-          className="w-full rounded-lg border border-foreground/15 bg-white px-4 py-2.5 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors resize-y"
+          className="w-full rounded-lg border border-foreground/15 bg-surface px-4 py-2.5 text-sm text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors resize-y"
         />
       </div>
 
@@ -109,8 +109,8 @@ export function ContactForm() {
         <div
           className={`rounded-lg px-4 py-3 text-sm ${
             state.success
-              ? "bg-mint/10 text-green-800"
-              : "bg-secondary/10 text-red-800"
+              ? "bg-mint/12 text-mint"
+              : "bg-secondary/12 text-secondary"
           }`}
         >
           {state.message}

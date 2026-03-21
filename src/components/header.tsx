@@ -2,6 +2,7 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { NavLink } from "./nav-link";
 import { MobileNav } from "./mobile-nav";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Header() {
   return (
@@ -14,15 +15,21 @@ export function Header() {
           {siteConfig.name}
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6">
-          {siteConfig.navLinks.map((link) => (
-            <NavLink key={link.href} href={link.href}>
-              {link.label}
-            </NavLink>
-          ))}
-        </nav>
+        <div className="hidden md:flex items-center gap-6">
+          <nav className="flex items-center gap-6">
+            {siteConfig.navLinks.map((link) => (
+              <NavLink key={link.href} href={link.href}>
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
+          <ThemeToggle />
+        </div>
 
-        <MobileNav />
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <MobileNav />
+        </div>
       </div>
     </header>
   );

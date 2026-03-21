@@ -9,10 +9,11 @@ export const metadata: Metadata = {
 };
 
 const photos = [
-  { src: "/images/gallery/show-1.jpg", alt: "Improv show performance", width: 800, height: 600 },
-  { src: "/images/gallery/show-2.jpg", alt: "Stage performance", width: 800, height: 600 },
-  { src: "/images/gallery/show-3.jpg", alt: "Comedy night", width: 600, height: 800 },
-  { src: "/images/gallery/behind-1.jpg", alt: "Behind the scenes", width: 600, height: 800 },
+  // Tweak `position` to reframe each image in the square gallery cards.
+  { src: "/images/gallery/improv show 1 (binx).jpg", alt: "Improv show performance", width: 800, height: 600, position: "50% 35%" },
+  { src: "/images/gallery/improv show 2 (binx).jpg", alt: "Stage performance", width: 800, height: 600, position: "50% 38%" },
+  { src: "/images/gallery/imprv show 3 (binx).jpg", alt: "Comedy night", width: 600, height: 800, position: "50% 40%" },
+  { src: "/images/gallery/clown 1 (old lady).jpg", alt: "Character performance", width: 600, height: 800, position: "50% 30%" },
 ];
 
 export default function GalleryPage() {

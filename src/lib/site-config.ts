@@ -5,6 +5,13 @@ export const siteConfig = {
     "Multi-hyphenate performer specializing in voice acting, improv comedy, podcasting, and improv coaching.",
   url: "https://johnqperforms.com",
   email: "hello@johnqperforms.com",
+  media: {
+    // Adjust `position` (x y) to recenter the portrait crop site-wide.
+    headshot: {
+      src: "/images/headshot.jpg",
+      position: "50% 30%",
+    },
+  },
   socials: {
     instagram: "https://instagram.com/johnqperforms",
     twitter: "https://twitter.com/johnqperforms",

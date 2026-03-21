@@ -64,7 +64,7 @@ export function AudioPlayer({
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div className="rounded-xl border border-foreground/10 bg-white p-4 shadow-sm">
+    <div className="rounded-xl border border-foreground/10 bg-surface p-4 shadow-sm shadow-black/5">
       <audio ref={audioRef} src={src} preload="metadata" />
 
       <div className="flex items-center gap-4">

@@ -64,10 +64,12 @@ export default function Home() {
           <div className="w-full lg:w-1/3 flex justify-center shrink-0">
             <div className="relative w-48 h-60 sm:w-56 sm:h-72 lg:w-64 lg:h-80 rounded-2xl overflow-hidden shadow-lg bg-primary/10">
               <Image
-                src="/images/headshot.jpg"
+                src={siteConfig.media.headshot.src}
                 alt={`${siteConfig.name} headshot`}
                 fill
+                sizes="(max-width: 1024px) 224px, 256px"
                 className="object-cover"
+                style={{ objectPosition: siteConfig.media.headshot.position }}
                 priority
               />
             </div>
