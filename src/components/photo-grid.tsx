@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -14,6 +15,9 @@ type Photo = {
 
 export function PhotoGrid({ photos }: { photos: Photo[] }) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+  const wheelDeltaRef = useRef(0);
 
   const close = useCallback(() => setLightboxIndex(null), []);
 
@@ -42,6 +46,54 @@ export function PhotoGrid({ photos }: { photos: Photo[] }) {
     };
   }, [lightboxIndex, close, prev, next]);
 
+  function onTouchStart(e: React.TouchEvent<HTMLDivElement>) {
+    const touch = e.touches[0];
+    if (!touch) return;
+
+    touchStartXRef.current = touch.clientX;
+    touchStartYRef.current = touch.clientY;
+  }
+
+  function onTouchEnd(e: React.TouchEvent<HTMLDivElement>) {
+    const startX = touchStartXRef.current;
+    const startY = touchStartYRef.current;
+    const touch = e.changedTouches[0];
+
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+
+    if (startX === null || startY === null || !touch) return;
+
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+    const horizontalThreshold = 45;
+
+    // Prefer horizontal swipes so normal vertical scrolling still works.
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) >= horizontalThreshold) {
+      if (deltaX < 0) {
+        next();
+      } else {
+        prev();
+      }
+    }
+  }
+
+  function onWheel(e: React.WheelEvent<HTMLDivElement>) {
+    if (lightboxIndex === null) return;
+
+    const axisDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    wheelDeltaRef.current += axisDelta;
+
+    const threshold = 70;
+    if (wheelDeltaRef.current >= threshold) {
+      next();
+      wheelDeltaRef.current = 0;
+    } else if (wheelDeltaRef.current <= -threshold) {
+      prev();
+      wheelDeltaRef.current = 0;
+    }
+  }
+
   return (
     <>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -67,6 +119,9 @@ export function PhotoGrid({ photos }: { photos: Photo[] }) {
         <div
           className="fixed inset-0 z-100 flex items-center justify-center bg-black/90"
           onClick={close}
+          onWheel={onWheel}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
         >
           <button
             onClick={close}
@@ -102,7 +157,6 @@ export function PhotoGrid({ photos }: { photos: Photo[] }) {
               width={photos[lightboxIndex].width}
               height={photos[lightboxIndex].height}
               className="object-contain max-h-[85vh] rounded-lg"
-              priority
             />
             <p className="text-center text-white/70 text-sm mt-3">
               {photos[lightboxIndex].alt} &middot; {lightboxIndex + 1} / {photos.length}

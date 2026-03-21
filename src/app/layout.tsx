@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { AnimatedBackground } from "@/components/animated-background";
+import { BackgroundLayer } from "@/components/background-layer";
 import { siteConfig } from "@/lib/site-config";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
 
@@ -70,7 +70,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-full flex flex-col relative bg-background text-foreground">
-        <AnimatedBackground />
+        <BackgroundLayer />
         <div className="relative z-10 flex min-h-full flex-1 flex-col">
           <Header />
           <main className="flex-1">{children}</main>
