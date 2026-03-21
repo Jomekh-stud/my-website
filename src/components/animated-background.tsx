@@ -68,7 +68,7 @@ export function AnimatedBackground() {
       let targetRepelX = 0;
       let targetRepelY = 0;
 
-      if (enablePointerEffects && mouse.active) {
+      if ((enablePointerEffects || enableTouchDragEffects) && mouse.active) {
         const rect = element.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
@@ -99,7 +99,7 @@ export function AnimatedBackground() {
 
       element.style.transform = `translate3d(${repelX}px, ${yMovement + repelY}px, 0) rotate(${rotation}deg)`;
     });
-  }, [enablePointerEffects, prefersReducedMotion, shouldUseFakeScroll]);
+  }, [enablePointerEffects, enableTouchDragEffects, prefersReducedMotion, shouldUseFakeScroll]);
 
   const scheduleUpdate = useCallback(() => {
     if (frameRef.current !== null) return;
@@ -255,16 +255,51 @@ export function AnimatedBackground() {
       scheduleUpdate();
     };
 
+    const updateFromTouch = (touch: Touch) => {
+      mousePositionRef.current = {
+        x: touch.clientX,
+        y: touch.clientY,
+        active: true,
+      };
+      scheduleUpdate();
+    };
+
+    const handleTouchStart = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      updateFromTouch(touch);
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      updateFromTouch(touch);
+    };
+
+    const handleTouchEnd = () => {
+      activePointerId = null;
+      mousePositionRef.current.active = false;
+      scheduleUpdate();
+    };
+
     window.addEventListener('pointerdown', handlePointerDown, { passive: true });
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
     window.addEventListener('pointerup', handlePointerEnd, { passive: true });
     window.addEventListener('pointercancel', handlePointerEnd, { passive: true });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    window.addEventListener('touchcancel', handleTouchEnd, { passive: true });
 
     return () => {
       window.removeEventListener('pointerdown', handlePointerDown);
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('pointerup', handlePointerEnd);
       window.removeEventListener('pointercancel', handlePointerEnd);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchcancel', handleTouchEnd);
     };
   }, [enableTouchDragEffects, scheduleUpdate]);
 
@@ -312,7 +347,7 @@ export function AnimatedBackground() {
         data-depth="0.04"
         data-speed="0.45"
         data-rotation="0.42"
-        className="absolute opacity-8"
+        className="absolute opacity-8 hidden sm:block"
         style={{
           width: '120px',
           height: '120px',
@@ -334,8 +369,9 @@ export function AnimatedBackground() {
           height: '100px',
           borderRadius: '60% 40% 45% 55% / 40% 60% 50% 50%',
           background: '#6bcb77',
-          top: '12%',
-          left: '18%',
+          top: isLargeScreen ? '12%' : '18%',
+          left: isLargeScreen ? '18%' : undefined,
+          right: isLargeScreen ? undefined : '12%',
           transition: 'transform 0.4s ease-out',
         }}
       />
@@ -344,7 +380,7 @@ export function AnimatedBackground() {
         data-depth="0.05"
         data-speed="0.5"
         data-rotation="0.46"
-        className="absolute opacity-7"
+        className="absolute opacity-7 hidden sm:block"
         style={{
           width: '110px',
           height: '110px',
@@ -365,9 +401,9 @@ export function AnimatedBackground() {
           width: '88px',
           height: '88px',
           borderRadius: '60% 40% 45% 55% / 50% 60% 40% 50%',
-          background: '#ffe066',
-          top: '32%',
-          left: '6%',
+          background: '#ff6b6b',
+          top: isLargeScreen ? '32%' : '30%',
+          left: isLargeScreen ? '6%' : '8%',
           transition: 'transform 0.4s ease-out',
         }}
       />
@@ -381,9 +417,9 @@ export function AnimatedBackground() {
           width: '130px',
           height: '130px',
           borderRadius: '65% 35% 50% 50% / 40% 60% 40% 60%',
-          background: '#8b65d4',
-          top: '40%',
-          right: '2%',
+          background: isLargeScreen ? '#8b65d4' : '#8b65d4',
+          top: isLargeScreen ? '40%' : '22%',
+          right: isLargeScreen ? '2%' : '2%',
           transition: 'transform 0.4s ease-out',
         }}
       />
@@ -398,8 +434,8 @@ export function AnimatedBackground() {
           height: '112px',
           borderRadius: '55% 45% 40% 60% / 50% 55% 45% 50%',
           background: '#ffd93d',
-          top: '52%',
-          left: '34%',
+          top: isLargeScreen ? '52%' : '58%',
+          left: isLargeScreen ? '34%' : '16%',
           transition: 'transform 0.4s ease-out',
         }}
       />
@@ -413,9 +449,9 @@ export function AnimatedBackground() {
           width: '94px',
           height: '94px',
           borderRadius: '35% 65% 55% 45% / 45% 50% 50% 55%',
-          background: '#9370db',
-          top: '79%',
-          right: '28%',
+          background: isLargeScreen ? '#9370db' : '#6bcb77',
+          top: isLargeScreen ? '79%' : '74%',
+          right: isLargeScreen ? '28%' : '14%',
           transition: 'transform 0.4s ease-out',
         }}
       />
@@ -430,8 +466,9 @@ export function AnimatedBackground() {
           height: '116px',
           borderRadius: '50% 50% 40% 60% / 55% 50% 50% 45%',
           background: '#a0e4a0',
-          bottom: '14%',
-          left: '11%',
+          top: isLargeScreen ? undefined : '56%',
+          bottom: isLargeScreen ? '14%' : undefined,
+          left: isLargeScreen ? '11%' : '-18px',
           transition: 'transform 0.4s ease-out',
         }}
       />
@@ -440,7 +477,7 @@ export function AnimatedBackground() {
         data-depth="0.06"
         data-speed="0.5"
         data-rotation="0.48"
-        className="absolute opacity-8"
+        className="absolute opacity-8 hidden sm:block"
         style={{
           width: '125px',
           height: '125px',
@@ -461,9 +498,10 @@ export function AnimatedBackground() {
           width: '104px',
           height: '104px',
           borderRadius: '48% 52% 46% 54% / 58% 42% 56% 44%',
-          background: '#6c3fc5',
-          bottom: '-30px',
-          left: '45%',
+          background: isLargeScreen ? '#6c3fc5' : '#ff6b6b',
+          top: isLargeScreen ? undefined : '2%',
+          bottom: isLargeScreen ? '-30px' : undefined,
+          left: isLargeScreen ? '45%' : '52%',
           transition: 'transform 0.4s ease-out',
         }}
       />
@@ -480,9 +518,9 @@ export function AnimatedBackground() {
           width: '190px',
           height: '190px',
           borderRadius: '55% 45% 40% 60% / 50% 55% 45% 50%',
-          background: '#ffd93d',
-          top: '23%',
-          left: '-55px',
+          background: isLargeScreen ? '#ffd93d' : '#8b65d4',
+          top: isLargeScreen ? '23%' : '18%',
+          left: isLargeScreen ? '-55px' : '-74px',
           transition: 'transform 0.4s ease-out',
         }}
       />
@@ -496,9 +534,9 @@ export function AnimatedBackground() {
           width: '196px',
           height: '196px',
           borderRadius: '35% 65% 55% 45% / 45% 50% 50% 55%',
-          background: '#9370db',
-          top: '52%',
-          right: '8%',
+          background: isLargeScreen ? '#9370db' : '#8b65d4',
+          top: isLargeScreen ? '52%' : '68%',
+          right: isLargeScreen ? '8%' : '-42px',
           transition: 'transform 0.4s ease-out',
         }}
       />
@@ -513,8 +551,8 @@ export function AnimatedBackground() {
           height: '180px',
           borderRadius: '40% 60% 60% 40% / 50% 50% 50% 50%',
           background: '#a0e4a0',
-          top: '66%',
-          left: '37%',
+          top: isLargeScreen ? '66%' : '48%',
+          left: isLargeScreen ? '37%' : '42%',
           transition: 'transform 0.4s ease-out',
         }}
       />
@@ -532,8 +570,10 @@ export function AnimatedBackground() {
           height: isLargeScreen ? '310px' : '268px',
           borderRadius: '40% 60% 50% 50% / 60% 40% 60% 40%',
           background: '#ff9a9a',
-          top: isLargeScreen ? '14%' : '18%',
-          right: isLargeScreen ? '-92px' : '-118px',
+          top: isLargeScreen ? '14%' : undefined,
+          right: isLargeScreen ? '-92px' : undefined,
+          bottom: isLargeScreen ? undefined : '-126px',
+          left: isLargeScreen ? undefined : '-102px',
           transition: 'transform 0.4s ease-out',
         }}
       />
@@ -596,8 +636,9 @@ export function AnimatedBackground() {
           height: '176px',
           borderRadius: '46% 54% 48% 52% / 58% 42% 53% 47%',
           background: '#ffd93d',
-          bottom: '18%',
-          left: '-56px',
+          top: '34%',
+          left: undefined,
+          right: '-64px',
           transition: 'transform 0.4s ease-out',
         }}
       />
