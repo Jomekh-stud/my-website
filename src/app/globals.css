@@ -75,3 +75,20 @@ html[data-theme="dark"] [data-shape] {
   filter: saturate(0.68) brightness(0.62);
   mix-blend-mode: darken;
 }
+
+/* Content entrance: gate hides the whole wrapper until JS takes over */
+html[data-content-hidden] .content-reveal {
+  opacity: 0;
+  transition: none;
+}
+
+/* Fallback: if JS never fires the reveal, the timeout sets data-content-ready */
+html[data-content-ready] .content-reveal {
+  opacity: 1;
+  transition: opacity 600ms ease-out;
+}
+
+/* Individual stagger targets get their own transition timing (JS sets inline opacity/transform) */
+.stagger-child {
+  transition: opacity 600ms ease-out, transform 600ms ease-out;
+}

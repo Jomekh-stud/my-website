@@ -8,6 +8,69 @@ function easeOutElastic(t: number): number {
   return Math.pow(2, -10 * t) * Math.sin(((t - p / 4) * (2 * Math.PI)) / p) + 1;
 }
 
+/** Fraction of SCROLL_DURATION at which page content starts fading in (0–1). */
+const CONTENT_REVEAL_THRESHOLD = 0.5;
+
+/** Milliseconds between each element's fade-in start. */
+const STAGGER_DELAY_MS = 80;
+
+/** Maximum cumulative delay so large pages don't take forever. */
+const MAX_STAGGER_MS = 400;
+
+/**
+ * Discover individual visual blocks for the stagger animation.
+ * Grids and vertical stacks (space-y-*) are "unrolled" so their
+ * children animate individually instead of as one big block.
+ */
+function getStaggerTargets(): HTMLElement[] {
+  const wrapper = document.querySelector(".content-reveal");
+  if (!wrapper) return [];
+  const targets: HTMLElement[] = [];
+
+  // Header & footer as atomic units
+  wrapper.querySelectorAll<HTMLElement>(":scope > :not(main)").forEach((el) => targets.push(el));
+
+  // Page content — unroll grids and vertical stacks one level
+  wrapper.querySelectorAll<HTMLElement>(":scope main > * > *").forEach((el) => {
+    const isGrid = getComputedStyle(el).display === "grid" && el.children.length > 1;
+    const isStack = /\bspace-y-/.test(el.className) && el.children.length > 1;
+
+    if (isGrid || isStack) {
+      for (const child of el.children) targets.push(child as HTMLElement);
+    } else {
+      targets.push(el);
+    }
+  });
+
+  targets.sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
+  return targets;
+}
+
+function hideStaggerTargets(targets: HTMLElement[]) {
+  targets.forEach((el) => {
+    el.style.transition = "none";
+    el.style.opacity = "0";
+    el.style.transform = "translateY(24px)";
+    el.style.transitionDelay = "";
+    el.classList.add("stagger-child");
+  });
+  // Commit hidden state, then restore transitions for the future reveal
+  void document.body.offsetHeight;
+  targets.forEach((el) => {
+    el.style.transition = "";
+  });
+}
+
+function revealStaggerTargets(targets: HTMLElement[]) {
+  // Force reflow so the hidden state is painted before transitioning
+  void document.body.offsetHeight;
+  targets.forEach((el, i) => {
+    el.style.transitionDelay = `${Math.min(i * STAGGER_DELAY_MS, MAX_STAGGER_MS)}ms`;
+    el.style.opacity = "1";
+    el.style.transform = "translateY(0)";
+  });
+}
+
 export function AnimatedBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
   const shapeElementsRef = useRef<HTMLElement[]>([]);
@@ -21,6 +84,9 @@ export function AnimatedBackground() {
   });
   const frameRef = useRef<number | null>(null);
   const MAX_ROTATION_SPEED = 2; // degrees per scroll event
+
+  // Content stagger ref
+  const staggerTargetsRef = useRef<HTMLElement[]>([]);
 
   // Entrance animation refs
   const entrancePhaseRef = useRef<"scrolling" | "done">("done");
@@ -218,6 +284,16 @@ export function AnimatedBackground() {
       entrancePhaseRef.current = "done";
     }
 
+    // Set up stagger targets: hide individual content blocks so they can
+    // fade in with stagger timing.  The gate script already hid the whole
+    // wrapper — we switch to per-element hiding so the wrapper can show.
+    if (document.documentElement.dataset.contentHidden) {
+      const targets = getStaggerTargets();
+      hideStaggerTargets(targets);
+      staggerTargetsRef.current = targets;
+      delete document.documentElement.dataset.contentHidden;
+    }
+
     scheduleUpdate();
 
     return () => {
@@ -241,6 +317,12 @@ export function AnimatedBackground() {
       if (phase === "scrolling") {
         const elapsed = now - entranceStartTimeRef.current;
         const progress = Math.min(elapsed / SCROLL_DURATION, 1);
+
+        if (progress >= CONTENT_REVEAL_THRESHOLD && !document.documentElement.dataset.contentReady) {
+          document.documentElement.dataset.contentReady = "true";
+          revealStaggerTargets(staggerTargetsRef.current);
+        }
+
         // easeOutElastic: bouncy overshoot settling toward 0
         const eased = easeOutElastic(progress);
         // Animate from -totalDistance toward 0 so final position = 0 (no snap)
@@ -259,6 +341,11 @@ export function AnimatedBackground() {
             entrancePhaseRef.current = "done";
             entranceOffsetRef.current = 0;
             updateShapes();
+
+            if (!document.documentElement.dataset.contentReady) {
+              document.documentElement.dataset.contentReady = "true";
+              revealStaggerTargets(staggerTargetsRef.current);
+            }
 
             try {
               sessionStorage.setItem("bg-entrance-played", "1");
@@ -299,6 +386,12 @@ export function AnimatedBackground() {
     shapes.forEach((shape) => {
       shape.style.transition = "none";
     });
+
+    // Re-gate content so it fades in again with the animation
+    delete document.documentElement.dataset.contentReady;
+    // Re-discover targets in case the page changed, then hide them
+    staggerTargetsRef.current = getStaggerTargets();
+    hideStaggerTargets(staggerTargetsRef.current);
 
     entrancePhaseRef.current = "scrolling";
     entranceOffsetRef.current = 0;

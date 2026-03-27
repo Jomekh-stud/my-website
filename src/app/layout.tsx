@@ -29,6 +29,22 @@ const themeScript = `
   })();
 `;
 
+const contentGateScript = `
+  (() => {
+    try {
+      if (sessionStorage.getItem("bg-entrance-played")) return;
+    } catch {}
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.innerWidth < 768) return;
+    document.documentElement.dataset.contentHidden = "true";
+    setTimeout(() => {
+      if (!document.documentElement.dataset.contentReady) {
+        document.documentElement.dataset.contentReady = "true";
+      }
+    }, 3500);
+  })();
+`;
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -68,10 +84,11 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: contentGateScript }} />
       </head>
       <body className="min-h-full flex flex-col relative bg-background text-foreground">
         <BackgroundLayer />
-        <div className="relative z-10 flex min-h-full flex-1 flex-col">
+        <div className="content-reveal relative z-10 flex min-h-full flex-1 flex-col">
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
