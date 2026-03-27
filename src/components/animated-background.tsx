@@ -111,16 +111,11 @@ export function AnimatedBackground() {
         const initialData = shapeInitialYRef.current.get(element);
         if (initialData && rawOffset !== 0) {
           const viewportH = window.innerHeight;
-          const totalRange = viewportH + initialData.height;
-          // Only wrap when the offset is large enough to push the blob off-screen;
-          // small offsets (elastic overshoot near 0) should pass through directly
-          // to avoid the modulo flipping negative-top blobs to the bottom.
-          if (Math.abs(rawOffset) > initialData.height) {
-            const wrappedPos = (((initialData.top + rawOffset) % totalRange) + totalRange) % totalRange;
-            entranceY = wrappedPos - initialData.top;
-          } else {
-            entranceY = rawOffset;
-          }
+          const range = viewportH + initialData.height;
+          const lo = -initialData.height;
+          const pos = initialData.top + rawOffset;
+          const wrappedPos = ((((pos - lo) % range) + range) % range) + lo;
+          entranceY = wrappedPos - initialData.top;
         } else {
           entranceY = rawOffset;
         }
