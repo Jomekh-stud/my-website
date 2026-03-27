@@ -247,19 +247,22 @@ export function AnimatedBackground() {
         entranceOffsetRef.current = -SCROLL_DISTANCE * (1 - eased);
 
         if (progress >= 1) {
-          entrancePhaseRef.current = "done";
-          entranceOffsetRef.current = 0;
+          // Re-enable CSS transitions BEFORE zeroing the offset so the
+          // browser smoothly interpolates the last few pixels of movement
+          // instead of snapping.
+          shapeElementsRef.current.forEach((shape) => {
+            shape.style.transition = "transform 0.4s ease-out";
+          });
 
-          updateShapes();
-
-          try {
-            sessionStorage.setItem("bg-entrance-played", "1");
-          } catch {}
-
+          // Wait one frame for the transition to take effect, then zero out
           requestAnimationFrame(() => {
-            shapeElementsRef.current.forEach((shape) => {
-              shape.style.transition = "transform 0.4s ease-out";
-            });
+            entrancePhaseRef.current = "done";
+            entranceOffsetRef.current = 0;
+            updateShapes();
+
+            try {
+              sessionStorage.setItem("bg-entrance-played", "1");
+            } catch {}
           });
 
           return;
