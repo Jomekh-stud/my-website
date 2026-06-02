@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { CalendarDays, ExternalLink, Ticket } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
@@ -18,6 +19,9 @@ type EventItem = {
   ticketUrl?: string;
   venueUrl?: string;
   notes?: string;
+  logo?: string;
+  description?: string;
+  address?: string;
 };
 
 // Add events here. Keep past entries in this list as your running log.
@@ -28,7 +32,9 @@ const events: EventItem[] = [
     venue: "The Actor's Company - Little Theater",
     city: "Los Angeles, CA",
     ticketUrl: "https://www.hollywoodfringe.org/projects/13621",
-    notes: "Thursday performance.",
+    logo: "/images/Kevin & John Fringe 2026 SQUARE SITE v4.png",
+    address: "916 Formosa Ave., Los Angeles, CA 90038",
+    description: "Two great shows, one unforgettable night.\n\nKevin August STFU is a fully foley mime show about a traveling musician unraveling in an Airbnb hours before a life-changing audition. Through a richly layered soundscape and precise physical comedy, the performer constructs an invisible world the audience can't help but complete.\n\nIn Get Me Ready With Me, the sleepiest little clown (John Queenan) recruits the audience to help him get ready for the day. Can you help him overcome his drowsiness so he can show up as a productive member of society? Or is there a deeper underlying issue the audience can solve?\n\nJoin Kevin and John for a double-whammy of fun and hilarity!",
   },
   {
     title: "Get Me Ready with Me",
@@ -36,7 +42,9 @@ const events: EventItem[] = [
     venue: "The Actor's Company - Little Theater",
     city: "Los Angeles, CA",
     ticketUrl: "https://www.hollywoodfringe.org/projects/13621",
-    notes: "Friday performance.",
+    logo: "/images/Kevin & John Fringe 2026 SQUARE SITE v4.png",
+    address: "916 Formosa Ave., Los Angeles, CA 90038",
+    description: "Two great shows, one unforgettable night.\n\nKevin August STFU is a fully foley mime show about a traveling musician unraveling in an Airbnb hours before a life-changing audition. Through a richly layered soundscape and precise physical comedy, the performer constructs an invisible world the audience can't help but complete.\n\nIn Get Me Ready With Me, the sleepiest little clown (John Queenan) recruits the audience to help him get ready for the day. Can you help him overcome his drowsiness so he can show up as a productive member of society? Or is there a deeper underlying issue the audience can solve?\n\nJoin Kevin and John for a double-whammy of fun and hilarity!",
   },
   {
     title: "Get Me Ready with Me",
@@ -44,7 +52,9 @@ const events: EventItem[] = [
     venue: "The Actor's Company - Little Theater",
     city: "Los Angeles, CA",
     ticketUrl: "https://www.hollywoodfringe.org/projects/13621",
-    notes: "Saturday matinee.",
+    logo: "/images/Kevin & John Fringe 2026 SQUARE SITE v4.png",
+    address: "916 Formosa Ave., Los Angeles, CA 90038",
+    description: "Two great shows, one unforgettable night.\n\nKevin August STFU is a fully foley mime show about a traveling musician unraveling in an Airbnb hours before a life-changing audition. Through a richly layered soundscape and precise physical comedy, the performer constructs an invisible world the audience can't help but complete.\n\nIn Get Me Ready With Me, the sleepiest little clown (John Queenan) recruits the audience to help him get ready for the day. Can you help him overcome his drowsiness so he can show up as a productive member of society? Or is there a deeper underlying issue the audience can solve?\n\nJoin Kevin and John for a double-whammy of fun and hilarity!",
   },
   {
     title: "Get Me Ready with Me",
@@ -52,7 +62,9 @@ const events: EventItem[] = [
     venue: "The Actor's Company - Little Theater",
     city: "Los Angeles, CA",
     ticketUrl: "https://www.hollywoodfringe.org/projects/13621",
-    notes: "Saturday performance.",
+    logo: "/images/Kevin & John Fringe 2026 SQUARE SITE v4.png",
+    address: "916 Formosa Ave., Los Angeles, CA 90038",
+    description: "Two great shows, one unforgettable night.\n\nKevin August STFU is a fully foley mime show about a traveling musician unraveling in an Airbnb hours before a life-changing audition. Through a richly layered soundscape and precise physical comedy, the performer constructs an invisible world the audience can't help but complete.\n\nIn Get Me Ready With Me, the sleepiest little clown (John Queenan) recruits the audience to help him get ready for the day. Can you help him overcome his drowsiness so he can show up as a productive member of society? Or is there a deeper underlying issue the audience can solve?\n\nJoin Kevin and John for a double-whammy of fun and hilarity!",
   },
   {
     title: "Get Me Ready with Me",
@@ -60,7 +72,9 @@ const events: EventItem[] = [
     venue: "The Actor's Company - Little Theater",
     city: "Los Angeles, CA",
     ticketUrl: "https://www.hollywoodfringe.org/projects/13621",
-    notes: "Thursday late night show.",
+    logo: "/images/Kevin & John Fringe 2026 SQUARE SITE v4.png",
+    address: "916 Formosa Ave., Los Angeles, CA 90038",
+    description: "Two great shows, one unforgettable night.\n\nKevin August STFU is a fully foley mime show about a traveling musician unraveling in an Airbnb hours before a life-changing audition. Through a richly layered soundscape and precise physical comedy, the performer constructs an invisible world the audience can't help but complete.\n\nIn Get Me Ready With Me, the sleepiest little clown (John Queenan) recruits the audience to help him get ready for the day. Can you help him overcome his drowsiness so he can show up as a productive member of society? Or is there a deeper underlying issue the audience can solve?\n\nJoin Kevin and John for a double-whammy of fun and hilarity!",
   },
   {
     title: "Mostly Fans - Certified Organic",
@@ -68,7 +82,7 @@ const events: EventItem[] = [
     venue: "Shared Experience Theater",
     city: "Los Angeles, CA",
     ticketUrl: "https://www.thesharedexperiencestudio.com/showcalendar",
-    notes: "Improv troupe performance.",
+    logo: "/images/Mostly-Fans-logo.jpeg",
   },
   {
     title: "Mostly Fans - Certified Organic",
@@ -76,7 +90,7 @@ const events: EventItem[] = [
     venue: "Shared Experience Theater",
     city: "Los Angeles, CA",
     ticketUrl: "https://www.thesharedexperiencestudio.com/showcalendar",
-    notes: "Improv troupe performance.",
+    logo: "/images/Mostly-Fans-logo.jpeg",
   },
   {
     title: "Mostly Fans - Certified Organic",
@@ -84,7 +98,7 @@ const events: EventItem[] = [
     venue: "Shared Experience Theater",
     city: "Los Angeles, CA",
     ticketUrl: "https://www.thesharedexperiencestudio.com/showcalendar",
-    notes: "Improv troupe performance.",
+    logo: "/images/Mostly-Fans-logo.jpeg",
   },
   {
     title: "Mostly Fans - Certified Organic",
@@ -92,7 +106,7 @@ const events: EventItem[] = [
     venue: "Shared Experience Theater",
     city: "Los Angeles, CA",
     ticketUrl: "https://www.thesharedexperiencestudio.com/showcalendar",
-    notes: "Improv troupe performance.",
+    logo: "/images/Mostly-Fans-logo.jpeg",
   },
   {
     title: "Mostly Fans - Certified Organic",
@@ -100,34 +114,7 @@ const events: EventItem[] = [
     venue: "Shared Experience Theater",
     city: "Los Angeles, CA",
     ticketUrl: "https://www.thesharedexperiencestudio.com/showcalendar",
-    notes: "Improv troupe performance.",
-  },
-  {
-    title: "Improv Night: House Team Showcase",
-    dateISO: "2026-04-12T20:00:00-05:00",
-    venue: "The Playground Theater",
-    city: "Chicago, IL",
-    ticketUrl: "https://example.com/tickets/improv-night",
-    venueUrl: "https://example.com/venues/playground-theater",
-    notes: "One-night-only set with a stacked lineup of guest improvisers.",
-  },
-  {
-    title: "Character Comedy Hour",
-    dateISO: "2026-05-03T19:30:00-05:00",
-    venue: "The Annoyance Theatre",
-    city: "Chicago, IL",
-    ticketUrl: "https://example.com/tickets/character-comedy-hour",
-    venueUrl: "https://example.com/venues/annoyance-theatre",
-    notes: "Original character work, audience chaos, and avoidable confidence.",
-  },
-  {
-    title: "Late Mic Variety Show",
-    dateISO: "2026-01-18T21:00:00-06:00",
-    venue: "The Den Theatre",
-    city: "Chicago, IL",
-    ticketUrl: "https://example.com/tickets/late-mic-variety-show",
-    venueUrl: "https://example.com/venues/the-den-theatre",
-    notes: "Hosted set featuring stand-up, improv, and voice character bits.",
+    logo: "/images/Mostly-Fans-logo.jpeg",
   },
 ];
 
@@ -219,18 +206,48 @@ export default function EventsPage() {
                 </span>
               )}
 
-              <p className={`text-sm mb-1 ${event.isPast ? "text-foreground/45" : "text-primary"}`}>
-                {formatEventDate(event.date)}
-              </p>
-              <h2 className="text-xl font-semibold mb-2">{event.title}</h2>
-              <p className={`text-sm mb-4 ${event.isPast ? "text-foreground/55" : "text-foreground/65"}`}>
-                {event.venue} - {event.city}
-              </p>
+              <div className="flex items-start gap-4 mb-4">
+                <div className="flex-1 min-w-0">
+                  <p className={`text-sm mb-1 ${event.isPast ? "text-foreground/45" : "text-primary"}`}>
+                    {formatEventDate(event.date)}
+                  </p>
+                  <div className={`rounded-lg p-3 mb-3 ${event.logo ? "text-white" : ""}`} style={event.logo ? { backgroundColor: event.title.includes("Get Me Ready") ? '#D9875F' : '#1E5FCF' } : {}}>
+                    <h2 className="text-xl font-semibold">{event.title}</h2>
+                  </div>
+                  <p className={`text-sm mb-4 ${event.isPast ? "text-foreground/55" : "text-foreground/65"}`}>
+                    {event.venue} - {event.city}
+                  </p>
+                  {event.address && (
+                    <p className={`text-sm mb-4 ${event.isPast ? "text-foreground/55" : "text-foreground/65"}`}>
+                      {event.address}
+                    </p>
+                  )}
+                </div>
+                {event.logo && (
+                  <div className="w-24 h-24 flex-shrink-0 overflow-hidden rounded-lg">
+                    <Image
+                      src={event.logo}
+                      alt={event.title}
+                      width={96}
+                      height={96}
+                      className="w-full h-full object-cover object-center"
+                    />
+                  </div>
+                )}
+              </div>
 
               {event.notes && (
                 <p className={`text-sm mb-4 ${event.isPast ? "text-foreground/55" : "text-foreground/65"}`}>
                   {event.notes}
                 </p>
+              )}
+
+              {event.description && (
+                <div className={`text-sm mb-4 space-y-3 ${event.isPast ? "text-foreground/55" : "text-foreground/65"}`}>
+                  {event.description.split('\n\n').map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
+                </div>
               )}
 
               <div className="flex flex-wrap gap-3">
