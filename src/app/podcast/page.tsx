@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Headphones, Heart } from "lucide-react";
+import { Headphones } from "lucide-react";
+import { SiSpotify, SiApple, SiYoutube, SiPatreon } from "react-icons/si";
 import { siteConfig } from "@/lib/site-config";
 import { PlatformLink } from "@/components/platform-link";
 
@@ -10,9 +11,9 @@ export const metadata: Metadata = {
 };
 
 const platforms = [
-  { key: "spotify", label: "Spotify" },
-  { key: "apple", label: "Apple Podcasts" },
-  { key: "youtube", label: "YouTube" },
+  { key: "spotify", label: "Spotify", icon: <SiSpotify size={18} /> },
+  { key: "apple", label: "Apple Podcasts", icon: <SiApple size={18} /> },
+  { key: "youtube", label: "YouTube", icon: <SiYoutube size={18} /> },
 ] as const;
 
 export default function PodcastPage() {
@@ -43,12 +44,14 @@ export default function PodcastPage() {
             {siteConfig.podcast.name}
           </h1>
 
-          <p className="text-foreground/60 text-lg mb-8">
-            {siteConfig.podcast.description}
-          </p>
+          <div className="space-y-4 text-foreground/60 text-lg mb-8">
+            {siteConfig.podcast.description.split("\n\n").map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </div>
 
           <div className="flex flex-wrap gap-3 justify-center md:justify-start mb-6">
-            {platforms.map(({ key, label }) => (
+            {platforms.map(({ key, label, icon }) => (
               <PlatformLink
                 key={key}
                 href={
@@ -57,6 +60,7 @@ export default function PodcastPage() {
                   ]
                 }
                 label={label}
+                platformIcon={icon}
               />
             ))}
           </div>
@@ -64,7 +68,7 @@ export default function PodcastPage() {
           <PlatformLink
             href={siteConfig.podcast.patreon}
             label="Support on Patreon"
-            icon={<Heart size={16} />}
+            platformIcon={<SiPatreon size={18} />}
             variant="patreon"
           />
         </div>

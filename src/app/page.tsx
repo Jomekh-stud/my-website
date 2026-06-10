@@ -90,12 +90,22 @@ export default function Home() {
               talk too much into microphones, and teach other people how to do all of
               the above.
             </p>
-            <Link
-              href="/coaching#contact-form"
-              className="inline-block px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-light transition-colors font-semibold"
-            >
-              Get in Touch
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+              <Link
+                href="/coaching#contact-form"
+                className="inline-block px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-light transition-colors font-semibold"
+              >
+                Get in Touch
+              </Link>
+              <a
+                href={siteConfig.podcast.patreon}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block px-6 py-3 border border-primary text-primary rounded-lg hover:bg-primary/5 transition-colors font-semibold"
+              >
+                Support on Patreon
+              </a>
+            </div>
           </div>
         </div>
       </section>

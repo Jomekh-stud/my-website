@@ -9,16 +9,17 @@ export const metadata: Metadata = {
 };
 
 const training = [
-  { institution: "The Second City", program: "Conservatory" },
   { institution: "Upright Citizens Brigade", program: "Improv 101-401" },
-  { institution: "Voice One", program: "VO Mastery Program" },
+  { institution: "The Clown School", program: "Clown 1-3" },
+  { institution: "Real Voice LA", program: "Voice Acting" },
+  { institution: "Shared Experience Theater", program: "Improv Training" },
+  { institution: "We Improv", program: "Improv Training" },
 ];
 
 const credits = [
-  { role: "Lead (V/O)", project: "Character Animation Series", venue: "Studio" },
-  { role: "Ensemble", project: "Main Stage Revue", venue: "The Second City" },
-  { role: "Host", project: "The John Queenan Show", venue: "Podcast" },
-  { role: "Featured", project: "Commercial Campaign", venue: "National" },
+  { role: "Improv Performer", project: "Mostly Fans", venue: "Shared Experience Theater" },
+  { role: "Solo Clown Show", project: "Get Me Ready With Me", venue: "Hollywood Fringe Festival" },
+  { role: "Host", project: "All Systems Go!", venue: "Podcast — Coming soon" },
 ];
 
 const skills = [
@@ -29,8 +30,7 @@ const skills = [
   "Hosting & Emceeing",
   "Podcast Production",
   "Audio Editing",
-  "Stage Combat",
-  "Singing (Baritone)",
+  "Singing",
 ];
 
 export default function ResumePage() {
@@ -106,7 +106,8 @@ export default function ResumePage() {
               <div key={item.project} className="border-l-2 border-secondary/20 pl-4">
                 <p className="font-medium">{item.project}</p>
                 <p className="text-sm text-foreground/60">
-                  {item.role} &middot; {item.venue}
+                  {item.role}
+                  {item.venue ? ` · ${item.venue}` : ""}
                 </p>
               </div>
             ))}

@@ -19,9 +19,9 @@ export const siteConfig = {
     linkedin: "https://linkedin.com/in/johnqperforms",
   },
   podcast: {
-    name: "The John Queenan Show",
+    name: "All Systems Go!",
     description:
-      "A comedy podcast exploring the wild world of improv, voice acting, and the creative hustle. New episodes weekly.",
+      "The premier audio narrative podcast celebrating niche, unsung gems from the world of indie tabletop roleplaying games.\n\nNew seasons debut quarterly.",
     artwork: "/images/podcast-artwork.jpg",
     patreon: "https://patreon.com/johnqshow",
     platforms: {
